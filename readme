@@ -1,0 +1,24 @@
+#Para la documentacion del API
+https://documenter.getpostman.com/view/12046942/Tzm6nbwP
+
+##PASOS PARA CORRER
+-NPM INSTALL (instalar componentes necesarios para el funcionamiento y despliegue del proyecto)
+##LOCAL
+npm run dev (correra en el puerto 3000)
+##DEPLOYAR
+serverless deploy
+
+endpoints:
+  GET - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/entrenador
+  GET - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/entrenador/{idEntrenador}
+  POST - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/entrenador
+  PUT - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/entrenador/{idEntrenador}
+  DELETE - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/entrenador/{idEntrenador}
+  GET - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/Zona
+  GET - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/Zona/{idZona}
+  POST - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/Zona
+  PUT - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/Zona/{idZona}
+  DELETE - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/Zona/{idZona}
+  POST - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/zona_personaje
+  PUT - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/zona_personaje/{idPersonaje}
+  DELETE - https://39mivpuwh2.execute-api.us-east-1.amazonaws.com/dev/v1/zona_personaje/{idPersonaje}

@@ -1,0 +1,8 @@
+DB_MAIN: rt2021
+DB_USERNAME: admin
+DB_PASSWORD: 123456789
+DB_HOST: rt2021.chsd9cnppxsi.us-east-1.rds.amazonaws.com
+DB_PORT: 3306
+region: us-east-1
+API_SWAPPI: https://swapi.py4e.com/api/
+API_VERSION: v1

@@ -1,0 +1,137 @@
+# NOTE: update this with your service name
+service: retoTecnico
+
+plugins:
+  - serverless-offline
+  - serverless-offline-sns
+# serverless-webpack configuration
+# Enable auto-packing of external modules
+custom:
+  serverless-offline-sns:
+    port: 4002 # a free port for the sns server to run on
+    debug: true
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage,'dev'}
+  region: ${opt:region, 'us-east-1'}
+  environment:
+    DB_MAIN: ${file(${opt:stage, self:provider.stage}.config.yml):DB_MAIN}
+    DB_USERNAME: ${file(${opt:stage, self:provider.stage}.config.yml):DB_USERNAME}
+    DB_PASSWORD: ${file(${opt:stage, self:provider.stage}.config.yml):DB_PASSWORD}
+    DB_HOST: ${file(${opt:stage, self:provider.stage}.config.yml):DB_HOST}
+    DB_PORT: ${file(${opt:stage, self:provider.stage}.config.yml):DB_PORT}
+    region : ${file(${opt:stage, self:provider.stage}.config.yml):region}
+    API_SWAPPI : ${file(${opt:stage, self:provider.stage}.config.yml):API_SWAPPI}
+    API_VERSION : ${file(${opt:stage, self:provider.stage}.config.yml):API_VERSION}
+functions:
+  entrenador:
+    handler: functions/entrenador.trainer
+    timeout: 120
+    events:
+      - http:
+          path: v1/entrenador
+          method: get
+      - http:
+          path: v1/entrenador/{idEntrenador}
+          method: get
+      - http:
+          path: v1/entrenador
+          method: post
+      - http:
+          path: v1/entrenador/{idEntrenador}
+          method: put
+      - http:
+          path: v1/entrenador/{idEntrenador}
+          method: delete
+  zona:
+    handler: functions/zona.zone
+    timeout: 120
+    events:
+      - http:
+          path: v1/Zona
+          method: get
+      - http:
+          path: v1/Zona/{idZona}
+          method: get
+      - http:
+          path: v1/Zona
+          method: post
+      - http:
+          path: v1/Zona/{idZona}
+          method: put
+      - http:
+          path: v1/Zona/{idZona}
+          method: delete
+  personaje:
+    handler: functions/personaje.character
+    timeout: 120
+    events:
+      - http:
+          path: v1/Personaje
+          method: get
+      - http:
+          path: v1/Personaje/{idPersonaje}
+          method: get
+      - http:
+          path: v1/Personaje
+          method: post
+      - http:
+          path: v1/Personaje/{idPersonaje}
+          method: put
+      - http:
+          path: v1/Personaje/{idPersonaje}
+          method: delete
+  zona_personaje:
+    handler: functions/zona_personaje.zoneCharacter
+    timeout: 120
+    events:
+      - http:
+          path: v1/zona_personaje
+          method: post
+      - http:
+          path: v1/zona_personaje/{idPersonaje}
+          method: put
+      - http:
+          path: v1/zona_personaje/{idPersonaje}
+          method: delete
+  swappi:
+    handler: functions/swappi.swappi
+    timeout: 120
+    events:
+      - http:
+          path: v1/people
+          method: get
+      - http:
+          path: v1/people/{id}
+          method: get
+      - http:
+          path: v1/planet
+          method: get
+      - http:
+          path: v1/planet/{id}
+          method: get
+      - http:
+          path: v1/film
+          method: get
+      - http:
+          path: v1/film/{id}
+          method: get
+      - http:
+          path: v1/starShip
+          method: get
+      - http:
+          path: v1/starShip/{id}
+          method: get
+      - http:
+          path: v1/vehicle
+          method: get
+      - http:
+          path: v1/vehicle/{id}
+          method: get
+      - http:
+          path: v1/species
+          method: get
+      - http:
+          path: v1/species/{id}
+          method: get

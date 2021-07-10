@@ -1,0 +1,598 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Documentacion de los Endpoints para el correcto entendimiento de los mismos",
+    "version": "1.0",
+    "title": "API Swappi",
+    "contact": {
+      "email": "jonathan.joan.avila@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "virtserver.swaggerhub.com",
+  "tags": [
+    {
+      "name": "entrenador",
+      "description": "Este modulo es para crear entrenadores, los cuales se encargaran de medir la salud de nuestros Personajes"
+    },
+    {
+      "name": "personaje",
+      "description": "Este modulo es para crear Personajes, donde consultaremos a swappi por los personajes que tiene registrados y haremos una evaluación de su IMC (indice de masa corporal) para saber la salud de nuestros personajes"
+    },
+    {
+      "name": "zona",
+      "description": "Este modulo es para crear zonas de entrenamiento donde se asignara un entrenador a cada zona"
+    },
+    {
+      "name": "zona_personaje",
+      "description": "Este modulo crea una relacion entre zonas y personajes, donde muchos personajes pueden estar en una misma zona y en muchas zonas pueden haber muchos personajes"
+    },
+    {
+      "name": "swappi",
+      "description": "Consultas al api de https://swapi.py4e.com/documentation donde mostramos la info y la traducimos al español"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "v1/personaje": {
+      "post": {
+        "tags": [
+          "personaje"
+        ],
+        "summary": "Insertar Personaje",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "personaje",
+            "description": "Insertar un nuevo personaje",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "idSwappi"
+              ],
+              "properties": {
+                "idSwappi": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Creado"
+          },
+          "404": {
+            "description": "No se encontro el valor"
+          }
+        }
+      },
+      "v1/personaje/{idPersonaje}": {
+        "put": {
+          "tags": [
+            "personaje"
+          ],
+          "summary": "Modificar personaje",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "personaje",
+              "description": "Modificar un personaje existente",
+              "required": true,
+              "schema": {
+                "parameters": [
+                  {
+                    "name": "idPersonaje",
+                    "in": "params",
+                    "description": "el Id del registro a buscar",
+                    "required": true,
+                    "type": "integer"
+                  }
+                ],
+                "type": "object",
+                "required": [
+                  "idSwappi"
+                ],
+                "properties": {
+                  "idSwappi": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Modificado"
+            },
+            "404": {
+              "description": "No se encontro el valor"
+            }
+          }
+        }
+      },
+      "v1/personaje": {
+        "get": {
+          "tags": [
+            "personaje"
+          ],
+          "summary": "Mostrar personaje",
+          "consumes": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Operación Exitosa",
+              "content": "application/json",
+              "schema": {
+                "$ref": "#/components/schemas/tbl_personaje"
+              }
+            }
+          }
+        }
+      }
+    },
+    "v1/personaje/{idPersonaje}": {
+      "get": {
+        "tags": [
+          "personaje"
+        ],
+        "summary": "Mostrar un Personaje",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "idPersonaje",
+            "in": "params",
+            "description": "el Id del registro a buscar",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación Exitosa",
+            "content": "application/json",
+            "schema": {
+              "$ref": "#/components/schemas/tbl_personaje"
+            }
+          },
+          "404": {
+            "description": "Personaje no encontrado"
+          }
+        }
+      }
+    },
+    "v1/entrenador": {
+      "post": {
+        "tags": [
+          "entrenador"
+        ],
+        "summary": "Insertar entrenador",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "entrenador",
+            "description": "Insertar un nuevo entrenador",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombre": {
+                  "type": "string",
+                  "example": "Jonathan"
+                },
+                "apellido": {
+                  "type": "string",
+                  "example": "Avila"
+                },
+                "edad": {
+                  "type": "string",
+                  "example": "52"
+                },
+                "codigoImperial": {
+                  "type": "string",
+                  "example": "rr23230"
+                },
+                "religion": {
+                  "type": "string",
+                  "example": "Monje Bendu"
+                },
+                "idZona": {
+                  "type": "substring",
+                  "example": "1,2,3,4"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Creado"
+          },
+          "404": {
+            "description": "No se encontro el valor"
+          }
+        }
+      },
+      "v1/entrenador/{idEntrenador}": {
+        "put": {
+          "tags": [
+            "entrenador"
+          ],
+          "summary": "Modificar entrenador",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "entrenador",
+              "description": "Modificar un entrenador existente",
+              "required": true,
+              "schema": {
+                "parameters": [
+                  {
+                    "name": "idEntrenador",
+                    "in": "params",
+                    "description": "el Id del registro a buscar",
+                    "required": true,
+                    "type": "integer"
+                  }
+                ],
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "example": "Jonathan"
+                  },
+                  "apellido": {
+                    "type": "string",
+                    "example": "Avila"
+                  },
+                  "edad": {
+                    "type": "string",
+                    "example": "52"
+                  },
+                  "codigoImperial": {
+                    "type": "string",
+                    "example": "rr23230"
+                  },
+                  "religion": {
+                    "type": "string",
+                    "example": "Monje Bendu"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Modificado"
+            },
+            "404": {
+              "description": "No se encontro el valor"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "entrenador"
+        ],
+        "summary": "Mostrar entrenador",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación Exitosa",
+            "content": "application/json",
+            "schema": {
+              "$ref": "#/components/schemas/tbl_personaje"
+            }
+          }
+        }
+      }
+    },
+    "v1/entrenador/{idEntrenador}": {
+      "get": {
+        "tags": [
+          "entrenador"
+        ],
+        "summary": "Mostrar un entrenador",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "idEntrenador",
+            "in": "params",
+            "description": "el Id del registro a buscar",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación Exitosa",
+            "content": "application/json",
+            "schema": {
+              "$ref": "#/components/schemas/tbl_entrenador"
+            }
+          },
+          "404": {
+            "description": "Entrenador no encontrado"
+          }
+        }
+      }
+    },
+    "v1/zona": {
+      "post": {
+        "tags": [
+          "zona"
+        ],
+        "summary": "Insertar Zona de ejercicio",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Zona",
+            "description": "Insertar una nuevo zona de ejercicio",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idPlaneta": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "idEntrenador": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Creado"
+          },
+          "404": {
+            "description": "No se encontro el valor"
+          }
+        }
+      },
+      "v1/zona/${idZona}": {
+        "put": {
+          "tags": [
+            "zona"
+          ],
+          "summary": "Modificar Zona de ejercicio",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "Zona",
+              "description": "Modificar una zona de ejercicios existente",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idPlaneta": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "idEntrenador": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Modificado"
+            },
+            "404": {
+              "description": "No se encontro el valor"
+            }
+          }
+        }
+      },
+      "v1/zona": {
+        "get": {
+          "tags": [
+            "zona"
+          ],
+          "summary": "Mostrar Zonas ejercicio",
+          "consumes": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Operación Exitosa",
+              "content": "application/json",
+              "schema": {
+                "$ref": "#/components/schemas/tbl_zona"
+              }
+            }
+          }
+        }
+      }
+    },
+    "v1/zona/{idZona}": {
+      "get": {
+        "tags": [
+          "zona"
+        ],
+        "summary": "Mostrar una Zona de ejercicio",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "idZona",
+            "in": "params",
+            "description": "el Id del registro a buscar",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación Exitosa",
+            "content": "application/json",
+            "schema": {
+              "$ref": "#/components/schemas/tbl_zona_ejercicio"
+            }
+          },
+          "404": {
+            "description": "Zona no encontrado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "tbl_personaje": {
+        "type": "object",
+        "properties": {
+          "idPersonaje": {
+            "type": "integer",
+            "example": 1
+          },
+          "nombre": {
+            "type": "string",
+            "example": "luke skywalker"
+          },
+          "IMC": {
+            "type": "Decimal",
+            "example": "25,2"
+          },
+          "composicion": {
+            "type": "string",
+            "example": "Obeso"
+          },
+          "activo": {
+            "type": "integer",
+            "example": 1
+          },
+          "idSwappi": {
+            "type": "integer",
+            "example": 1
+          }
+        },
+        "required": [
+          "idSwappi"
+        ]
+      },
+      "tbl_entrenador": {
+        "type": "object",
+        "properties": {
+          "idEntrenador": {
+            "type": "integer",
+            "example": 1
+          },
+          "nombre": {
+            "type": "string",
+            "example": "Jonathan"
+          },
+          "apellido": {
+            "type": "string",
+            "example": "Avila"
+          },
+          "edad": {
+            "type": "string",
+            "example": "19E24"
+          },
+          "codigoImperial": {
+            "type": "string",
+            "example": "R002342"
+          },
+          "religion": {
+            "type": "string",
+            "example": "Fuerza Oscura"
+          },
+          "idZona": {
+            "type": "integer",
+            "example": 1
+          },
+          "activo": {
+            "type": "integer",
+            "example": 1
+          }
+        },
+        "required": [
+          "nombre",
+          "apellido",
+          "codigoImperial",
+          "activo"
+        ]
+      },
+      "tbl_zona": {
+        "type": "object",
+        "properties": {
+          "idZona": {
+            "type": "integer",
+            "example": 1
+          },
+          "nombrePlaneta": {
+            "type": "string",
+            "example": "tattoine"
+          },
+          "gravedad": {
+            "type": "string",
+            "example": "1,1"
+          },
+          "idPlaneta": {
+            "type": "integer",
+            "example": 1
+          },
+          "activo": {
+            "type": "integer",
+            "example": 1
+          },
+          "idPersonaje": {
+            "type": "integer",
+            "example": 7
+          }
+        },
+        "required": [
+          "idSwappi",
+          "nombrePlaneta",
+          "gravedad",
+          "idPlaneta",
+          "idPersonaje",
+          "activo"
+        ]
+      }
+    }
+  },
+  "definitions": {}
+}
